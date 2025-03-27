@@ -34,3 +34,11 @@ resources:
           - AttributeName: id
             KeyType: HASH
 
+functions:
+  getProducts:
+    handler: src/handlers/getProducts.getProducts
+    events:
+      - http:
+          path: products
+          method: get
+          cors: true
