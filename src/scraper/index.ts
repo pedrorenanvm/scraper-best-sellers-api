@@ -24,6 +24,8 @@ export async function getBestSellers() {
       }));
   });
 
+  console.log("Produtos extraídos: ", products);  
+
   await browser.close();
   
   for (const product of products ){
