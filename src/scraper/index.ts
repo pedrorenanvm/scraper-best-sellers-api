@@ -1,5 +1,8 @@
 import puppeteer from "puppeteer";
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { v4 as uuidv4 } from "uuid";
 
+const dynamoCLient = new DynamoDBClient({ region: "us-east-1" });
 
 export async function getBestSellers() {
   const url = "https://www.amazon.com.br/bestsellers/";
@@ -24,7 +27,21 @@ export async function getBestSellers() {
   });
 
   await browser.close();
-  return products;
+  
+  for (const product of products ){
+    const params = {
+      TableName: "BestSellersProducts",
+      Item: {
+        id: { S: uuidv4()},
+        name: { S: product.name},
+      timestamp: { S: new Date().toISOString()},
+      },
+    };
+
+    await dynamoCLient.send(new PutItemCommand(params));
+  }
+
+  console.log("Produtos salvos com sucesso no DynamoDB!");
 
 }
   
