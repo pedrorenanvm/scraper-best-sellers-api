@@ -11,7 +11,7 @@
   },
   "include": [
     "src/**/*.ts"
-, "src/scraper"  ],
+, "src/scraper", "src/handlers"  ],
   "exclude": [
     "node_modules"
   ]
