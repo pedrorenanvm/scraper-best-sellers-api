@@ -36,7 +36,7 @@ resources:
 
 functions:
   getProducts:
-    handler: src/handlers/getProducts.getProducts
+    handler: src/handlers/getProducts.handler
     events:
       - http:
           path: products
